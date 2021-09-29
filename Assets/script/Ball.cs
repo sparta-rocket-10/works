@@ -3,6 +3,9 @@ using TMPro;
 
 public class Ball : MonoBehaviour
 {
+	Vector2 MousePosition;
+	Camera Camera;
+
 
 	coin coinsManager;
 
@@ -20,15 +23,28 @@ public class Ball : MonoBehaviour
 		col = GetComponent<CircleCollider2D>();
 	}
 
+	
+
 	void Start()
     {
-		coinsManager = FindObjectOfType<coin>();
+		//Camera = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
 
-	// OnTriggerEnter2D는 충돌이 일어날때 한번만 호출되는 함수
+    //void Update()
+    //{/
+      //if(Input.GetMouseButtonDown(0))
+        //{
+	//		MousePosition = Input.mousePosition;
+	//		MousePosition = Camera.ScreenToWorldPoint(MousePosition);
 
-	private float Coin = 0;
+	//		Debug.Log(MousePosition);
+      //  }
+   // }
+
+    // OnTriggerEnter2D는 충돌이 일어날때 한번만 호출되는 함수
+
+    public float Coin = 0;
 
 	public TextMeshProUGUI textCoins;
 
