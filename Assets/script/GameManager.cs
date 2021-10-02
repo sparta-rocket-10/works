@@ -1,27 +1,35 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+
 public class GameManager : MonoBehaviour
 {
+	public GameObject hoop;
+	public GameObject newHoop;
+	
 	#region Singleton class: GameManager
 
-	public GameObject hoop;
 
-	// Sprite Renderer component »ç¿ëÇÏ±â À§ÇÑ ¼±¾ğ,ÃÊ±âÈ­
+
+	// Sprite Renderer component ì‚¬ìš©í•˜ê¸° ìœ„í•œ ì„ ì–¸,ì´ˆê¸°í™”
 	//public SpriteRenderer renderer;
-	
+
 	public static GameManager Instance;
 	public Text ScoreText;
 
-	//gamdobject bg1,2,3¸¦ ¹Ş¾Æ¿Â´Ù. 
+	//gamdobject bg1,2,3ë¥¼ ë°›ì•„ì˜¨ë‹¤. 
 	public GameObject bg1;
 	public GameObject bg2;
 	public GameObject bg3;
 
+
+	
+
 	int totalScore = 0;
 
-	//½Ì±ÛÅæÀÌ¶ó´Â µğÀÚÀÎÆĞÅÏ. ÇÏ³ª¹Û¿¡ Á¸ÀçÇÒ¼ö¹Û¿¡ ¾ø´Ù. ¾îµğ¼­µç ºÒ·¯ ¾µ¼ö ÀÖ´Ù. 
+	//ì‹±ê¸€í†¤ì´ë¼ëŠ” ë””ìì¸íŒ¨í„´. í•˜ë‚˜ë°–ì— ì¡´ì¬í• ìˆ˜ë°–ì— ì—†ë‹¤. ì–´ë””ì„œë“  ë¶ˆëŸ¬ ì“¸ìˆ˜ ìˆë‹¤. 
 	public static GameManager I;
 
 	void Awake()
@@ -39,6 +47,8 @@ public class GameManager : MonoBehaviour
 
 	public Ball ball;
 	public Ball Coin;
+	
+	
 
 	public Trajectory trajectory;
 	[SerializeField] float pushForce = 4f;
@@ -59,14 +69,15 @@ public class GameManager : MonoBehaviour
 
 		InvokeRepeating("floating", 0.0f, 2.5f);
 
-		//Sprite Renderer component »ç¿ëÇÏ±â À§ÇÑ  ÃÊ±âÈ­
+		//Sprite Renderer component ì‚¬ìš©í•˜ê¸° ìœ„í•œ  ì´ˆê¸°í™”
 		//renderer = GetComponent<SpriteRenderer>();
 	}
 
 
-	void floating()
+	public void floating()
     {
-		Instantiate(hoop);
+		GameObject newHoop = Instantiate(hoop);
+		//Instantiate(hoop);
     }
 
 
@@ -88,20 +99,49 @@ public class GameManager : MonoBehaviour
 			OnDrag();
 		}
 
-		//À¯´ÏÆ¼ ´Ù¸¥ ½ºÅ©¸³Æ®¿¡ ÀÖ´Â º¯¼ö¿¡ Á¢±ÙÇÏ±â
-		//GameObJect.Find(½ºÅ©¸³Æ®¸¦ Æ÷ÇÔÇÏ´Â ¿ÀºêÁ§Æ®ÀÌ¸§).GetComponent<½ºÅ©¸³Æ® ÀÌ¸§>().º¯¼ö
+		//ìœ ë‹ˆí‹° ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì— ìˆëŠ” ë³€ìˆ˜ì— ì ‘ê·¼í•˜ê¸°
+		//GameObJect.Find(ìŠ¤í¬ë¦½íŠ¸ë¥¼ í¬í•¨í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ì´ë¦„).GetComponent<ìŠ¤í¬ë¦½íŠ¸ ì´ë¦„>().ë³€ìˆ˜
 
 		if (GameObject.Find("Ball").GetComponent<Ball>().Coin< 1)
 		{
 			Debug.Log("1");
-			//°Ë»öÇØ¼­ ÇÏ´Â ¹æ¹ı ÄÚµå¸¦ °¡Á®¿Í¼­ »ç¿ëÇÏ±â
-			//rain½ºÅ©¸³Æ®ÀÇ ¿À¸¥ÂÊ È­¸é component¿¡¼­ spriterenderer¿¡ color¸¦ ¼öÁ¤ÇÏ´Â°Í. 
+			//ê²€ìƒ‰í•´ì„œ í•˜ëŠ” ë°©ë²• ì½”ë“œë¥¼ ê°€ì ¸ì™€ì„œ ì‚¬ìš©í•˜ê¸°
+			//rainìŠ¤í¬ë¦½íŠ¸ì˜ ì˜¤ë¥¸ìª½ í™”ë©´ componentì—ì„œ spriterendererì— colorë¥¼ ìˆ˜ì •í•˜ëŠ”ê²ƒ. 
 			//GetComponent<SpriteRenderer>().color = new Color(100 / 255.0f, 100 / 255.0f, 255 / 255.0f, 255 / 255.0f);
 			
 			//GameObject.Find("bg1").GetComponent<SpriteRenderer>().set
 			bg1.SetActive(true);
 			bg2.SetActive(false);
 			bg3.SetActive(false);
+
+			//.SetActive(true);
+
+			
+			newHoop.transform.Find("hoop1").gameObject.SetActive(true);
+			newHoop.transform.Find("hoop1_1").gameObject.SetActive(false);
+			//GameObject.FindGameObjectWithTag("hoop1").SetActive(true);
+			//GameObject.FindGameObjectWithTag("hoop1_1").SetActive(false);
+			//hoop.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+			//hoop1.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
+			//Prefabs.Getchild(0).gameObject;
+
+			//GameObjectì˜ ë¶€ë¡œ hoop -> ìì‹ hoop1ìœ¼ë¡œ ë“¤ì–´ê°€ëŠ”ê±´ ë¨. 
+			//GameObject.Find("hoop").transform.Find("hoop1").gameObject.SetActive(false);
+			//GameObject.Find("hoop").transform.Find("hoop1_1").gameObject.SetActive(false);
+			//GameObject.Find("hoop").transform.Find("hoop1_1").gameObject.SetActive(false);
+
+			//Null ì´ ë°œìƒí•˜ëŠ”ê±´  hoop1ì´ ì •ì˜ì•ˆë˜ì„œ ê·¸ëŸ°ê±°ê°™ë‹¤. 
+
+			//GameObject.Find("hoop1").gameObject.SetActive(false);
+			//GameObject.Find("hoop1_1").gameObject.SetActive(true);
+
+
+			//GameObject.Find("hoop").transform.GetChild(3).gameObject.SetActive(true);
+			//GameObject.Find("hoop").transform.GetChild(5).gameObject.SetActive(false);
+
+
+			//.getchild(0).setactive(true);
+
 		}
 		if (GameObject.Find("Ball").GetComponent<Ball>().Coin > 1 && GameObject.Find("Ball").GetComponent<Ball>().Coin < 3)
 		{
@@ -110,6 +150,10 @@ public class GameManager : MonoBehaviour
 			bg3.SetActive(false);
 			bg1.SetActive(false);
 
+			//GameObject.Find("hoop").transform.Find("hoop1").gameObject.SetActive(true);
+			//GameObject.Find("hoop").transform.Find("hoop1_1").gameObject.SetActive(false);
+			newHoop.transform.Find("hoop1").gameObject.SetActive(false);
+			newHoop.transform.Find("hoop1_1").gameObject.SetActive(false);
 		}
 		if (GameObject.Find("Ball").GetComponent<Ball>().Coin > 3)
 		{
@@ -117,6 +161,11 @@ public class GameManager : MonoBehaviour
 			bg3.SetActive(true);
 			bg2.SetActive(false);
 			bg1.SetActive(false);
+
+			//GameObject.Find("hoop").transform.Find("hoop1").gameObject.SetActive(false);
+			//GameObject.Find("hoop").transform.Find("hoop1_1").gameObject.SetActive(true);
+			newHoop.transform.Find("hoop1").gameObject.SetActive(false);
+			newHoop.transform.Find("hoop1_1").gameObject.SetActive(true);
 		}
 
 
@@ -126,7 +175,7 @@ public class GameManager : MonoBehaviour
 	{
 		totalScore += score;
 		//Debug.Log(totalScore);
-		//totalScore¸¦ ¹®ÀÚ¿­·Î ¹Ù²ã¼­ ÀÔ·Â
+		//totalScoreë¥¼ ë¬¸ìì—´ë¡œ ë°”ê¿”ì„œ ì…ë ¥
 		ScoreText.text = totalScore.ToString();
 	}
 
@@ -135,11 +184,11 @@ public class GameManager : MonoBehaviour
 	//-Drag--------------------------------------
 	void OnDragStart()
 	{
-		//°øÀÌ ¸ØÃß°Ô ¸¸µé¾î¹ö¸².
+		//ê³µì´ ë©ˆì¶”ê²Œ ë§Œë“¤ì–´ë²„ë¦¼.
 		ball.DesactivateRb();
 		startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
 
-		//°ø Á¡Á¡Ä¿Áö´Â°Ô º¸ÀÎ´Ù. 
+		//ê³µ ì ì ì»¤ì§€ëŠ”ê²Œ ë³´ì¸ë‹¤. 
 		trajectory.Show();
 	}
 

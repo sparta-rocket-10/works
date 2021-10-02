@@ -6,6 +6,9 @@ TagManager:
   tags:
   - coin
   - ball
+  - hoop1
+  - hoop1_1
+  - hoop
   layers:
   - Default
   - TransparentFX
